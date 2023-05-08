@@ -1,6 +1,20 @@
-.myimg {
-    width: 150px;
+.Home {
+    background-color: blanchedalmond;
+    min-height: 500px;
+    text-align: center;
 }
-.svg {
-    width: 300px;
+.About {
+    background-color: aqua;
+    min-height: 500px;
+    text-align: center;
+}
+.Services {
+    background-color: crimson;
+    min-height: 500px;
+    text-align: center;
+}
+.Contact {
+    min-height: 500px;
+    background-color: chartreuse;
+    text-align: center;
 }
