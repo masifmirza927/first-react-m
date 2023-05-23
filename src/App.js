@@ -7,6 +7,7 @@ function App() {
 
   const [fruits, setFruits] = useState(["apple", "mango", "cherry", "peach"]);
 
+
   return (
     <div className="App">
       <ul>
