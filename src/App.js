@@ -5,12 +5,18 @@ import MyFirstComp from "./MyFirstComp"
 
 function App() {
 
-  const [fruits, setFruits] = useState(["apple", "mango"]);
-
+  const [fruits, setFruits] = useState(["apple", "mango", "cherry", "peach"]);
 
   return (
     <div className="App">
-      
+      <ul>
+        {
+          fruits.map( (item) => {
+            return <li>{item}</li>
+          })
+        }
+      </ul>
+
     </div>
   );
 
