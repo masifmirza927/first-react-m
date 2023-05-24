@@ -1,29 +1,30 @@
 import './App.css';
 import { useState } from "react"
 
-import MyFirstComp from "./MyFirstComp"
 
 function App() {
 
   const [fruits, setFruits] = useState([]);
   const [inputText, setInputText] = useState("");
 
-  const addItem = () => {
-    const newArr = [...fruits, inputText];
-    setFruits( newArr);
+  const inputUpdate = (event) => {
+    setInputText(event.target.value);
   }
 
-  const inputUpdate = (event) => {
-    const txt = event.target.value;
-    setInputText(txt);
+  const updateArr = () => {
+    
+    const newAr = [...fruits, inputText];
+    setFruits(newAr);
+    setInputText("");
   }
-  
+
 
   return (
     <div className="App">
-      <input onChange={inputUpdate} type='text' />
+      <input onChange={inputUpdate} type='text' value={inputText} />
 
-      <button onClick={addItem}>Add</button>
+      <button onClick={updateArr}>Add</button>
+
       <ul>
         {
           fruits.map( (item, index) => {
