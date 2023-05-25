@@ -18,6 +18,16 @@ function App() {
     setInputText("");
   }
 
+  const deleteItem = (item) => {
+    
+    const result = fruits.filter( (elem) => {
+      return elem != item;
+    })
+
+    setFruits(result);
+
+  }
+
 
   return (
     <div className="App">
@@ -28,7 +38,7 @@ function App() {
       <ul>
         {
           fruits.map( (item, index) => {
-            return <li key={index}>{item}</li>
+            return <li key={index}>{item} <button onClick={ () => { deleteItem(item) } } >X</button> </li>
           })
         }
       </ul>
