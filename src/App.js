@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 
 function App() {
@@ -7,32 +7,44 @@ function App() {
   const [fruits, setFruits] = useState([]);
   const [inputText, setInputText] = useState("");
 
+  const inputField = useRef();
+
+
+
   const inputUpdate = (event) => {
     setInputText(event.target.value);
+
+    let e = event || window.event; 
+    console.log(e.keyCode);
+
   }
 
   const updateArr = () => {
-    
     const newAr = [...fruits, inputText];
     setFruits(newAr);
     setInputText("");
+    inputField.current.focus();
   }
 
+// we are deleting item from fruits array
+// params: item -> fruit
   const deleteItem = (item) => {
-    
     const result = fruits.filter( (elem) => {
       return elem != item;
     })
-
     setFruits(result);
-
   }
 
+  const enterKeyPressed = (event) => {
+    console.log(event)
+    if(event.key == "Enter") {
+      updateArr();
+    }
+  }
 
   return (
     <div className="App">
-      <input onChange={inputUpdate} type='text' value={inputText} />
-
+      <input onChange={inputUpdate} type='text' onKeyUp={enterKeyPressed} value={inputText} ref={inputField}  />
       <button onClick={updateArr}>Add</button>
 
       <ul>
