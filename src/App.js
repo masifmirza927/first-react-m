@@ -13,10 +13,6 @@ function App() {
 
   const inputUpdate = (event) => {
     setInputText(event.target.value);
-
-    let e = event || window.event; 
-    console.log(e.keyCode);
-
   }
 
   const updateArr = () => {
