@@ -1,0 +1,68 @@
+* { padding: 0; margin: 0;  box-sizing: border-box; }
+body {
+    background-color: #efefef;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    width: 730px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+.inputTxt {
+    padding: 10px;
+    width: 80%;
+    margin-right: 10px;
+    border: 0px;
+    background: #efefef;
+    box-shadow: 1px 1px 2px 0px #00000017;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.btn {
+    background: #ea4c89;
+    color: #fff;
+    border: 0px;
+    width: 100px;
+    padding: 10px;
+    margin: 10px;
+    border: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.clearAllBtn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    display: inline-block;
+    margin: 10px auto;
+}
+.listBox {
+    padding: 10px;
+    margin: 10px auto;
+}
+ul {
+    list-style-type: none;
+}
+ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #efefef;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+.delIcon {
+    cursor: pointer;
+    border: 0px;
+    background-color: transparent;
+}
+.checked {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
