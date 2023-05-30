@@ -1,17 +1,17 @@
 import './App.css';
 import { useRef, useState } from "react"
-import MyFirstComp from './MyFirstComp';
 import Completed from './Completed';
+import Confirm from './Confirm';
 
 
 function App() {
 
-  const [fruits, setFruits] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-
   const [inputText, setInputText] = useState("");
-
+  const [isOpen, setIsOpen] = useState(false);
   const inputField = useRef();
+  const [selectedItem, setSelectedItem] = useState({});
 
 
 
@@ -20,28 +20,42 @@ function App() {
   }
 
   const addItem = () => {
-    const newAr = [...fruits, inputText];
-    setFruits(newAr);
+    const newAr = [...tasks, inputText];
+    setTasks(newAr);
     setInputText("");
     inputField.current.focus();
   }
 
+
+
+
+
   // we are deleting item from fruits array
   // params: item -> fruit
-  const deleteItem = (index) => {
-    const result = fruits.toSpliced(index, 1);
-    setFruits(result);
+  const deleteItem = (index, taskType) => {
+    if(index == undefined && taskType == undefined) {
+      index = selectedItem.index;
+      taskType = selectedItem.taskType;
+      setIsOpen(false);
+    }
+
+    if(taskType == "inprogress") {
+      const result = tasks.toSpliced(index, 1);
+      setTasks(result);
+    }else if(taskType == "completed") {
+      const result = completedTasks.toSpliced(index, 1);
+      setCompletedTasks(result);
+    }
   }
 
   const enterKeyPressed = (event) => {
-    console.log(event)
     if (event.key == "Enter") {
       addItem();
     }
   }
   // clear all in prgress tasks
   const clearAll = () => {
-    setFruits([]);
+    setTasks([]);
   }
 
   // handle checkbox
@@ -49,26 +63,47 @@ function App() {
     if (event.target.checked == true) {
       const newAr = [...completedTasks, item];
       setCompletedTasks(newAr);
-      deleteItem(index);
+      deleteItem(index, "inprogress");
+    } else {
+      const newAr = [...tasks, item];
+      setTasks(newAr);
+      deleteItem(index, "completed");
     }
   }
+
+
+  // open confirmation modal
+  const confirm = (index, taskType) => {
+    setIsOpen(true);
+    setSelectedItem({
+      index: index,
+      taskType: taskType
+    });
+
+  }
+  const cancelConfirm = () => {
+    setIsOpen(false);
+    setSelectedItem({});
+  }
+
+  console.log(selectedItem);
 
   return (
     <div className="App">
       <div className='container'>
-      
+
         <div className='inputBox'>
           <input className='inputTxt' onChange={inputUpdate} type='text' onKeyUp={enterKeyPressed} value={inputText} ref={inputField} />
           <button className='btn' onClick={addItem}>Add</button>
         </div>
-        <h1>In Progress Tasks</h1>
+        <h3>In Progress Tasks</h3>
         <div className="listBox">
           <ul>
             {
-              fruits.map((item, index) => {
-                return (<li key={index}> <input className='checked' type='checkbox'  onChange={(event) => { handleCheckbox(event, item, index) }} />  <span>{item}</span>
-                  <button className='delIcon' onClick={() => { deleteItem(index) }} >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{"fill": "rgb(204 42 42)"}}><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg>
+              tasks.map((item, index) => {
+                return (<li key={index}> <input className='checked' type='checkbox' onChange={(event) => { handleCheckbox(event, item, index) }} />  <span>{item}</span>
+                  <button className='delIcon' onClick={() => { confirm(index, "inprogress") }} >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ "fill": "rgb(204 42 42)" }}><path d="M15 2.013H9V9H2v6h7v6.987h6V15h7V9h-7z"></path></svg>
                   </button>
                 </li>)
               })
@@ -76,16 +111,17 @@ function App() {
           </ul>
         </div>
 
-       {
-        (fruits.length > 0) ? <button className='btn clearAllBtn' onClick={clearAll} >Clear All</button> : null
-       }       
-       
-
-
-        
+        {
+          (tasks.length > 0) ? <button className='btn clearAllBtn' onClick={clearAll} >Clear All</button> : null
+        }
       </div>  {/* container */}
-     
+
       <Completed completedTasks={completedTasks} />
+
+      {
+        (isOpen == true) ? <Confirm cancelConfirm={cancelConfirm} deleteItem={deleteItem}  /> : null
+      }
+
 
     </div>
   );

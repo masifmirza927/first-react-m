@@ -36,7 +36,7 @@ body {
 .clearAllBtn {
     display: block;
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     display: inline-block;
     margin: 10px auto;
 }
@@ -65,4 +65,34 @@ ul li {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+
+#confirmBox {
+    width: 500px;
+    height: 200px;
+    background-color: #e1e1e1;
+    padding: 20px;
+    border-radius: 4px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px 0px #00000021;
+    border: 5px solid #fff;
+}
+.confirmBtn {
+    padding: 10px 20px;
+    background-color: #ea4c89;
+    border: 0px;
+    margin: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+}
+.innerBox > div {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
 }
